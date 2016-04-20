@@ -32,6 +32,7 @@ public class EmployeeDatabaseInterface extends AppCompatActivity {
      * insertData adds elements to the Employee database using information given by the user
      * @param vw is the button the method is associated with
      */
+
     private void insertData(View vw){
 
         /**
@@ -52,6 +53,7 @@ public class EmployeeDatabaseInterface extends AppCompatActivity {
 
             /**
              * 1. Set each variable equal to the values from the EditTexts
+
              * 2. put each value into the ContentValues variable
              * 3. Call the EmployeeDatabaseHelper's insertElement method
              * 4. Display that the element has been added successfully

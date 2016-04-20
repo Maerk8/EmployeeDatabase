@@ -2,6 +2,7 @@ package commrhardman23.httpsgithub.employeedatabase;
 
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteException;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -46,9 +47,9 @@ public class SearchDatabase extends AppCompatActivity {
         String[] elementsToSearch;
         EmployeeDatabaseHelper employeeDatabaseHelper = new EmployeeDatabaseHelper(this, null, null, 0);
         SQLiteDatabase db;
-        Cursor searchCursor;
+        Cursor searchCursor = null;
 
-
+                
         if(edtxtName.getText().length() != 0){
 
             numOfArguments++;
@@ -146,31 +147,46 @@ public class SearchDatabase extends AppCompatActivity {
          *    elementsToSearch variables for the String where and String[] whereArgs parameters,
          *    respectively. The query should go inside the try-catch block before the if statement
          *    that follows.
-         *
-         * if(searchCursor.getCount() == 0){
-         *
-         *      txtvwResult.setText("There are no entries with this info...");
-         *
-         * } else {
-         *
-         *      if(searchCursor.moveToFirst()) {
-         *
-         *          for (int i = 0; i < searchCursor.getCount(); i++) {
-         *
-         *              txtvwResult.setText(txtvwResult.getText().toString() +
-         *                  String.format("Name: %-20s Position %-20s\nEmployee Number: %-20d" +
-         *                                  " Wage: -20.2f\n", searchCursor.getString(0),
-         *                                  searchCursor.getString(1), searchCursor.getInt(2),
-         *                                  searchCursor.getDouble(3)));
-         *
-         *              How do we get the next row in the Cursor? Put that here...
-         *
-         *          }
-         *
-         *      }
-         * }
-         *
          */
+
+;
+
+
+        try {
+
+            db = employeeDatabaseHelper.getReadableDatabase();
+            searchCursor = db.query("EMPLOYEE", new String[]{"NAME","POSITION", "EMPLOYEE_NUM", "WAGE"},
+                    whereToSearch, elementsToSearch, null, null, null);
+
+
+
+          if(searchCursor.getCount() == 0){
+
+               txtvwResult.setText("There are no entries with this info...");
+
+          } else {
+
+               if(searchCursor.moveToFirst()) {
+
+                   for (int i = 0; i < searchCursor.getCount(); i++) {
+
+                       txtvwResult.setText(txtvwResult.getText().toString() +
+                           String.format("Name: %-20s Position %-20s\nEmployee Number: %-20d" +
+                                           " Wage: -20.2f\n", searchCursor.getString(1),
+                                           searchCursor.getString(2), searchCursor.getInt(3),
+                                           searchCursor.getDouble(4)));
+
+
+                       //How do we get the next row in the Cursor? Put that here...
+                       searchCursor.moveToNext();
+                   }
+
+               }
+          }
+
+        } catch(SQLiteException e) {
+            txtvwResult.setText("Database Result Not Found");
+        }
 
     }
 
@@ -287,6 +303,22 @@ public class SearchDatabase extends AppCompatActivity {
          *    the String where and String[] whereArgs parameters, respectively
          * 3. Display the number of rows deleted
          */
+
+
+        try{
+
+            db = employeeDatabaseHelper.getReadableDatabase();
+
+            numRowsDeleted = employeeDatabaseHelper.deleteElement(db, whereToDelete, elementsToDelete);
+            txtvwResult.setText("Number Of Rows Deleted: " + numRowsDeleted);
+
+
+
+
+
+        }catch (SQLiteException e){
+            txtvwResult.setText("Database Result Not Found");
+        }
 
     }
 
