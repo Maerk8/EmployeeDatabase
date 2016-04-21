@@ -35,7 +35,7 @@ public class SearchDatabase extends AppCompatActivity {
      * for it, and displays the result in a TextView.
      * @param vw is the button this method is associated with
      */
-    private void searchDatabase(View vw){
+    public void searchDatabase(View vw){
 
         int numOfArguments = 0;
         int indexOfSearchArray = 0;
@@ -47,7 +47,7 @@ public class SearchDatabase extends AppCompatActivity {
         String[] elementsToSearch;
         EmployeeDatabaseHelper employeeDatabaseHelper = new EmployeeDatabaseHelper(this, null, null, 0);
         SQLiteDatabase db;
-        Cursor searchCursor = null;
+        Cursor searchCursor;
 
                 
         if(edtxtName.getText().length() != 0){
@@ -172,9 +172,9 @@ public class SearchDatabase extends AppCompatActivity {
 
                        txtvwResult.setText(txtvwResult.getText().toString() +
                            String.format("Name: %-20s Position %-20s\nEmployee Number: %-20d" +
-                                           " Wage: -20.2f\n", searchCursor.getString(1),
-                                           searchCursor.getString(2), searchCursor.getInt(3),
-                                           searchCursor.getDouble(4)));
+                                           " Wage: -20.2f\n", searchCursor.getString(0),
+                                           searchCursor.getString(1), searchCursor.getInt(2),
+                                           searchCursor.getDouble(3)));
 
 
                        //How do we get the next row in the Cursor? Put that here...
@@ -195,7 +195,7 @@ public class SearchDatabase extends AppCompatActivity {
      * database that contain the information provided
      * @param vw is the button the method is associated with
      */
-    private void deleteEntry(View vw){
+    public void deleteEntry(View vw){
 
         int numOfArguments = 0;
         int indexOfSearchArray = 0;

@@ -7,6 +7,8 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import java.util.jar.Attributes;
+
 public class EmployeeDatabaseInterface extends AppCompatActivity {
 
     private EditText edtxtName;
@@ -33,7 +35,7 @@ public class EmployeeDatabaseInterface extends AppCompatActivity {
      * @param vw is the button the method is associated with
      */
 
-    private void insertData(View vw){
+    public void insertData(View vw){
 
         /**
          * 1. Create a new EmployeeDatabaseHelper variable. You will need to use the following call:
@@ -51,13 +53,18 @@ public class EmployeeDatabaseInterface extends AppCompatActivity {
 
         } else {
 
-            /**
-             * 1. Set each variable equal to the values from the EditTexts
 
-             * 2. put each value into the ContentValues variable
-             * 3. Call the EmployeeDatabaseHelper's insertElement method
-             * 4. Display that the element has been added successfully
-             */
+            //1. Set each variable equal to the values from the EditTexts
+            name = edtxtName.setText("Something New");
+
+            // 2. put each value into the ContentValues variable
+
+
+            // 3. Call the EmployeeDatabaseHelper's insertElement method
+
+
+            //4. Display that the element has been added successfully
+
 
         }
 
@@ -68,7 +75,7 @@ public class EmployeeDatabaseInterface extends AppCompatActivity {
      * in the Employee database
      * @param vw is the button that is associated with this method
      */
-    private void searchOrDelete(View vw){
+    public void searchOrDelete(View vw){
 
         Intent goToSearchDelete = new Intent(this, SearchDatabase.class);
 
